@@ -3,7 +3,9 @@ pipeline{
     stages{
         stage("Git"){
             steps{
-                git url:"https://github.com/MartiMarch/formacion-jenkins-groovy.git"
+                withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]){
+                    sh "git clone https://${GIT_USER}:${GIT_PASS}@github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git"
+                }
             }
         }
         stage("Maven"){
