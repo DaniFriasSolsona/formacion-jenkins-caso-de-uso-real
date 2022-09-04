@@ -52,13 +52,20 @@ pipeline{
             steps{
                 script{
                     dir("formacion-jenkins-caso-de-uso-real/helm"){
+
+                        //Imprimiendo el resultado de aplicar el values sobre el template
                         sh "helm template -f values.yaml ."
+                        
+                        //Linter de Helm
                         def out = sh(returnStdout: true, script: "helm lint -f values.yaml .")
                         echo "${out}"
                         if(!out.contains("0 chart(s) failed")){
                             currentBuild.result = "FAILURE"
                             throw new Exception("Linted helm chart failed!!!")
                         }
+
+                        //Desplegando chart
+                        sh "helm install formacion-jenkins ."
                     }
                 }
             }
