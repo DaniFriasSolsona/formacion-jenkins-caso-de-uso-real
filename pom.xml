@@ -38,14 +38,10 @@
                 <version>3.2.2</version>
                 <configuration>
                     <archive>
-                        <index>true</index>
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>com.dybbukk.obtainarpofgateway.ARP</mainClass>
                         </manifest>
-                        <manifestEntries>
-                            <key>value</key>
-                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
