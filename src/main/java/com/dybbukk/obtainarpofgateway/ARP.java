@@ -191,8 +191,15 @@ public class ARP extends Thread{
     public String ejecucionCMD(String comando)
     {
         String salidaConsola = "";
+        String os = System.getProperty("os.name").toLowerCase();
+        ProcessBuilder instruccion = (null);
         try {
-            ProcessBuilder instruccion = new ProcessBuilder("cmd.exe", "/c", comando);
+            if(os.contains(os)){
+                instruccion = new ProcessBuilder("/bin/bash", "/c", comando);
+            }
+            else{
+                instruccion = new ProcessBuilder("cmd.exe", "/c", comando);
+            }
             instruccion.redirectErrorStream(true);
             Process proceso = instruccion.start();
             BufferedReader salida = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
