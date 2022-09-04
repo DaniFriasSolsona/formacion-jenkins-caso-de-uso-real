@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.name }}
+    spec:
+      containers:
+      - name: {{ .Values.deployment.name }}
+        image: {{ .Values.deployment.image.name }}
+        imagePullPolicy: {{ .Values.deployment.container.policy }}
+        {{- if hasKey .Values.deployment "command" }}
+        command: {{ toJson .Values.deployment.command }}
+        {{- end }}
+        {{- if hasKey .Values.deployment "args" }}
+        args: {{ toJson .Values.deployment.args }}
+        {{- end }}
+        {{- if hasKey .Values.deployment "securityContext" }}
+        securityContext:
+          runAsUser: {{ .Values.deployment.securityContext.runAsUser }}
+          runAsGroup: {{ .Values.deployment.securityContext.runAsGroup }}
+          fsGroup: {{ .Values.deployment.securityContext.fsGroup }}
+        {{- end }}
+        ports:
+        {{- range .Values.deployment.ports }}
+          - containerPort: {{ .port }}
+        {{- end }}
+        env:
+        {{- if hasKey .Values.deployment "env" }}
+          {{- range .Values.deployment.env }}
+          - name: {{ .name }}
+            value: {{ quote .value }}
+          {{- end }}
+        {{- end }}
+        {{- if hasKey .Values.deployment.secrets "data" }}
+          {{- range .Values.deployment.secrets.data }}
+          - name: {{ .env }}
+            valueFrom:
+              secretKeyRef:
+                name: "{{ $.Values.deployment.name }}-secrets"
+                key: {{ .name }}
+          {{- end }}
+        {{- end }}
+        {{- if hasKey .Values.deployment.secrets "stringData" }}
+          {{- range .Values.deployment.secrets.stringData }}
+          - name: {{ .env }}
+            valueFrom:
+              secretKeyRef:
+                name: "{{ $.Values.deployment.name }}-secrets"
+                key: {{ .name }}
+          {{- end }}
+        {{- end }}
+      {{- if eq .Values.persistence.status "true" }}
+        volumeMounts:
+          - mountPath: {{ .Values.persistence.mountPath }}
+            name: "{{ .Values.deployment.name }}-pv"
+      volumes:
+      - name: "{{ .Values.deployment.name }}-pv"
+        persistentVolumeClaim:
+          claimName: "{{ .Values.deployment.name }}-pvc"
+      {{- end }}

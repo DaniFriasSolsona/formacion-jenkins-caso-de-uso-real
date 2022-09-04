@@ -1,0 +1,7 @@
+deployment:
+  name: obtainarpofgateway
+  replicas: 1
+  container: 
+    policy: IfNotPresent
+  image: 
+    name: obtainarpofgateway:1.0
