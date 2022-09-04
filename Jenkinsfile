@@ -33,7 +33,7 @@ pipeline{
                     sh "touch Dockerfile"
                     sh "echo -e 'FROM openjdk' >> Dockerfile"
                     sh "echo -e 'COPY ${jarPath} ${jarName}' >> Dockerfile"
-                    sh "echo -e 'CMD java -jar ${jarName}' >> Dockerfile"
+                    sh "echo -e 'CMD java -cp ${jarName} com.dybbukk.obtainarpofgateway.ARP' >> Dockerfile"
                     
                     //Printenado el contenido del Dockerfile
                     def dockerfileContent = sh (returnStdout: true, script: "cat Dockerfile")
@@ -59,7 +59,7 @@ pipeline{
                             currentBuild.result = "FAILURE"
                             throw new Exception("Linted helm chart failed!!!")
                         }
-                        
+
                     }
                 }
             }
