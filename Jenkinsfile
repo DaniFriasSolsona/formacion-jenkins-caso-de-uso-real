@@ -44,7 +44,7 @@ pipeline{
                     def dockerName = jarName[0].toLowerCase() + ":" + jarName[1].toLowerCase()
 
                     //Build del Dockerfile 
-                    sh "docker image build -f Dockerfile -t ${dockerName}"
+                    sh "docker image build -f Dockerfile -t ${dockerName} ."
                 }
             }
         }
