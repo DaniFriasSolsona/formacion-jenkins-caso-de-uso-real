@@ -68,11 +68,14 @@ pipeline{
                         }
 
                         //Desplegando chart
-                        sh """
-                            set +x
-                            helm install formacion-jenkins . --kubeconfig /root/.kube/config
-                            set -x
-                        """
+                        withCredentials([file(credentialsId: 'KUBECONFIG', variable: 'KUBECONFIG')]) {
+                            sh "echo '${KUBECONFIG}' >> kubeconfig"
+                            sh """
+                                set +x
+                                helm install formacion-jenkins . --kubeconfig ${KUBECONFIG}
+                                set -x
+                            """
+                        }
                     }
                 }
             }
