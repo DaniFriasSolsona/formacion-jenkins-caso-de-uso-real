@@ -11,8 +11,17 @@ pipeline{
         stage("Maven"){
             steps{
                 script{
-                    sh "ls -ll"
                     sh "chdir=${WORKSPACE}/formacion-jenkins-caso-de-uso-real mvn validate compile test package verify install"
+                }
+            }
+        }
+        stage("Docker"){
+            steps{
+                script{
+                    def jarName = sh(returnStdout: true, script: "chdir=${WORKSPACE} find -name *.jar*")
+                    jarName = jarName.split("/")
+                    jarName = jarName[jarName.size()]
+                    def jarPath = "chdir=${WORKSPACE}/formacion-jenkins-caso-de-uso-real/target"
                 }
             }
         }
