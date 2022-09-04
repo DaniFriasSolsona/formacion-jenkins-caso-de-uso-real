@@ -41,7 +41,7 @@ pipeline{
 
                     //Creando un nombre para la imagen docker
                     jarName = jarName.split("-")
-                    def dockerName = jarName[0].trim() + ":" + jarName[1].trim()
+                    def dockerName = jarName[0].toLowerCase() + ":" + jarName[1].toLowerCase()
 
                     //Build del Dockerfile 
                     sh "docker image build -f Dockerfile -t ${dockerName}"
