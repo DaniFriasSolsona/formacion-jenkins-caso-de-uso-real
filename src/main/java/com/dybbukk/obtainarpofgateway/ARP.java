@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
-public class ARP {
+public class ARP extends Thread{
     private String ip_1 = "192.168.1.0", ip_2 = "192.168.1.255";
     private static final char PUNTO = '.';
     private ArrayList<String> tablaARP = new ArrayList();
@@ -337,8 +337,14 @@ public class ARP {
         }
     }
     
+    @Override
+    public void run(){
+        this.escanearRed();
+    }
+    
     public static void main(String[] args) {
+        
         ARP arp = new ARP("192.168.1.0", "192.168.1.100");
-        arp.escanearRed();
+        arp.start();
     }
 }
