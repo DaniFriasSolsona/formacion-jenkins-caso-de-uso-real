@@ -59,6 +59,7 @@ pipeline{
                             currentBuild.result = "FAILURE"
                             throw new Exception("Linted helm chart failed!!!")
                         }
+                        
                     }
                 }
             }
