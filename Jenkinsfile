@@ -23,6 +23,9 @@ pipeline{
         stage("Docker"){
             steps{
                 script{
+                    //Purgando imágenes en desuso
+                    sh "docker image prune -a -f"
+
                     //Oteniendo la ruta  ynombre del JAR
                     def jarName = sh(returnStdout: true, script: "chdir=${WORKSPACE} find -name *.jar*").trim()
                     jarName = jarName.split("/")
