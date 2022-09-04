@@ -70,7 +70,7 @@ pipeline{
                         //Desplegando chart
                         sh """
                             set +x
-                            helm install formacion-jenkins . --kubeconfig ~/.kube/config
+                            helm install formacion-jenkins . --kubeconfig /root/.kube/config
                             set -x
                         """
                     }
