@@ -52,6 +52,7 @@ pipeline{
             steps{
                 dir("formacion-jenkins-caso-de-uso-real/helm"){
                     sh "helm template -f values.yaml ."
+                    sh "helm lint -f values.yaml ."
                 }
             }
         }
