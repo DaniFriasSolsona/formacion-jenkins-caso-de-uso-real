@@ -1,0 +1,9 @@
+{
+    "projectType": "java",
+    "projectPath": "formacion-jenkins-caso-de-uso-real",
+    "dockerfilePath": "Dockerfile",
+    "chartPath": "",
+    "maven": {
+        "parameters": "validate compile test package verify install"
+    }
+}

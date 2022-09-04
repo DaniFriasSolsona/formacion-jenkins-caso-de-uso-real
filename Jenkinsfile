@@ -12,7 +12,9 @@ pipeline{
         stage("Maven"){
             steps{
                 script{
+                    //Entrando al directorio del repositorio clonado
                     dir("formacion-jenkins-caso-de-uso-real") {
+                        //Ejecutando maven con todas las fases deseadas
                         sh "mvn validate compile test package verify install"
                     }
                 }
@@ -21,11 +23,21 @@ pipeline{
         stage("Docker"){
             steps{
                 script{
+                    //Oteniendo la ruta  ynombre del JAR
                     def jarName = sh(returnStdout: true, script: "chdir=${WORKSPACE} find -name *.jar*")
                     jarName = jarName.split("/")
                     jarName = jarName[jarName.size() - 1]
-                    def jarPath = "chdir=${WORKSPACE}/formacion-jenkins-caso-de-uso-real/target" + jarName
-                    echo "${jarPath}"
+                    def jarPath = "${WORKSPACE}/formacion-jenkins-caso-de-uso-real/target/" + jarName
+                    
+                    //Creando el Dockerfile
+                    sh "touch Dockerfile"
+                    sh "echo 'FROM java:8\n' >> Dockerfile"
+                    sh "echo 'ADD ${jarPath} ${jarName}\n' >> Dockerfile"
+                    sh "echo 'CMD java - jar ${jarName}' >> Dockerfile"
+                    
+                    //Printenado el contenido del Dockerfile
+                    def dockerfileContent = sh (returnStdout: true, script: "cat Dockerfile")
+                    echo "[DEBUG] Dockerfile content:\n${dockerfileContent}"
                 }
             }
         }
