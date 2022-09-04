@@ -50,12 +50,14 @@ pipeline{
         }
         stage("Helm"){
             steps{
-                dir("formacion-jenkins-caso-de-uso-real/helm"){
-                    sh "helm template -f values.yaml ."
-                    def out = sh (returnStdout: true, script: "helm lint -f values.yaml .")
-                    if(!out.contains("0 chart(s) failed")){
-                        currentBuild.result = "FAILURE"
-                        throw new Exception("Linted helm chart failed!!!")
+                script{
+                    dir("formacion-jenkins-caso-de-uso-real/helm"){
+                        sh "helm template -f values.yaml ."
+                        def out = sh(returnStdout: true, script: "helm lint -f values.yaml .")
+                        if(!out.contains("0 chart(s) failed")){
+                            currentBuild.result = "FAILURE"
+                            throw new Exception("Linted helm chart failed!!!")
+                        }
                     }
                 }
             }
