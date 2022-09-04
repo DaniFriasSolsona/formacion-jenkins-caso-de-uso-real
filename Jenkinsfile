@@ -68,7 +68,9 @@ pipeline{
                         }
 
                         //Desplegando chart
-                        sh "helm install formacion-jenkins ."
+                        withCredentials([string(credentialsId: 'KUBERNETES_TOKEN', variable: 'TOKEN')]){
+                            sh "helm install formacion-jenkins . --token ${TOKEN} --server apiserver.hostname.local"
+                        }
                     }
                 }
             }
