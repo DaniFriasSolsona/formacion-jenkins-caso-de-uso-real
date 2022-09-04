@@ -15,7 +15,7 @@ pipeline{
                     //Entrando al directorio del repositorio clonado
                     dir("formacion-jenkins-caso-de-uso-real") {
                         //Ejecutando maven con todas las fases deseadas
-                        sh "mvn validate compile test package verify install"
+                        sh "mvn validate install compile test package verify "
                     }
                 }
             }
@@ -33,7 +33,7 @@ pipeline{
                     sh "touch Dockerfile"
                     sh "echo -e 'FROM openjdk' >> Dockerfile"
                     sh "echo -e 'COPY ${jarPath} ${jarName}' >> Dockerfile"
-                    sh "echo -e 'CMD java -cp ${jarName} com.dybbukk.obtainarpofgateway.ARP' >> Dockerfile"
+                    sh "echo -e 'CMD java -jar ${jarName}' >> Dockerfile"
                     
                     //Printenado el contenido del Dockerfile
                     def dockerfileContent = sh (returnStdout: true, script: "cat Dockerfile")
@@ -59,7 +59,6 @@ pipeline{
                             currentBuild.result = "FAILURE"
                             throw new Exception("Linted helm chart failed!!!")
                         }
-
                     }
                 }
             }
