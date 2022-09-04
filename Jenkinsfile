@@ -38,6 +38,9 @@ pipeline{
                     //Printenado el contenido del Dockerfile
                     def dockerfileContent = sh (returnStdout: true, script: "cat Dockerfile")
                     echo "[DEBUG] Dockerfile content:\n${dockerfileContent}"
+
+                    //Build del Dockerfile
+                    sh "docker image build -f Dockerfile -t ${jarName}"
                 }
             }
         }
