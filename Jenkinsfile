@@ -23,8 +23,8 @@ pipeline{
                 script{
                     def jarName = sh(returnStdout: true, script: "chdir=${WORKSPACE} find -name *.jar*")
                     jarName = jarName.split("/")
-                    jarName = jarName[jarName.size()]
-                    def jarPath = "chdir=${WORKSPACE}/formacion-jenkins-caso-de-uso-real/target"
+                    jarName = jarName[jarName.size() - 1]
+                    def jarPath = "chdir=${WORKSPACE}/formacion-jenkins-caso-de-uso-real/target" + jarName
                 }
             }
         }
