@@ -15,7 +15,7 @@ pipeline{
                     //Entrando al directorio del repositorio clonado
                     dir("formacion-jenkins-caso-de-uso-real") {
                         //Ejecutando maven con todas las fases deseadas
-                        sh "mvn validate install compile test package verify "
+                        sh "mvn validate compile test package verify install"
                     }
                 }
             }
