@@ -25,6 +25,7 @@ pipeline{
                     jarName = jarName.split("/")
                     jarName = jarName[jarName.size() - 1]
                     def jarPath = "chdir=${WORKSPACE}/formacion-jenkins-caso-de-uso-real/target" + jarName
+                    echo "${jarPath}"
                 }
             }
         }
