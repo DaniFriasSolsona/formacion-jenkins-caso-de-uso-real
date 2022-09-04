@@ -12,7 +12,7 @@ pipeline{
         stage("Maven"){
             steps{
                 script{
-                    sh "chdir=${WORKSPACE}/formacion-jenkins-caso-de-uso-real mvn validate compile test package verify install"
+                    sh "chdir=${WORKSPACE}/formacion-jenkins-caso-de-uso-real/ mvn validate compile test package verify install"
                 }
             }
         }
