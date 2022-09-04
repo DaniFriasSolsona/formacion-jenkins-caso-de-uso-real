@@ -33,7 +33,7 @@ pipeline{
                     sh "touch Dockerfile"
                     sh "echo -e 'FROM openjdk' >> Dockerfile"
                     sh "echo -e 'COPY ${jarPath} ${jarName}' >> Dockerfile"
-                    sh "echo -e 'CMD java - jar ${jarName}' >> Dockerfile"
+                    sh "echo -e 'CMD java -jar ${jarName}' >> Dockerfile"
                     
                     //Printenado el contenido del Dockerfile
                     def dockerfileContent = sh (returnStdout: true, script: "cat Dockerfile")
@@ -48,6 +48,12 @@ pipeline{
                 }
             }
         }
-        
+        stage("Helm"){
+            steps{
+                dir("helm"){
+                    sh "helm template -f values.yaml ."
+                }
+            }
+        }
     }
 }
