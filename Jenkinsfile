@@ -39,7 +39,10 @@ pipeline{
                     def dockerfileContent = sh (returnStdout: true, script: "cat Dockerfile")
                     echo "[DEBUG] Dockerfile content:\n${dockerfileContent}"
 
-                    //Build del Dockerfile
+                    //Creando un nombre para la imagen docker
+                    jarName = jarName.split("/")[0] + ":" + jarName.split("/")[1]
+
+                    //Build del Dockerfile 
                     sh "docker image build -f Dockerfile -t ${jarName}"
                 }
             }
