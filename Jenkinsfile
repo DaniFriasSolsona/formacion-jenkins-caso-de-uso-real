@@ -31,9 +31,9 @@ pipeline{
                     
                     //Creando el Dockerfile
                     sh "touch Dockerfile"
-                    sh "echo 'FROM java:8\n' >> Dockerfile"
-                    sh "echo 'ADD ${jarPath} ${jarName}\n' >> Dockerfile"
-                    sh "echo 'CMD java - jar ${jarName}' >> Dockerfile"
+                    sh "echo -e 'FROM java:8' >> Dockerfile"
+                    sh "echo -e 'ADD ${jarPath} ${jarName}' >> Dockerfile"
+                    sh "echo -e 'CMD java - jar ${jarName}' >> Dockerfile"
                     
                     //Printenado el contenido del Dockerfile
                     def dockerfileContent = sh (returnStdout: true, script: "cat Dockerfile")
