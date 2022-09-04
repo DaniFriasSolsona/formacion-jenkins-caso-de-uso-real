@@ -40,10 +40,11 @@ pipeline{
                     echo "[DEBUG] Dockerfile content:\n${dockerfileContent}"
 
                     //Creando un nombre para la imagen docker
-                    jarName = jarName.split("/")[0] + ":" + jarName.split("/")[1]
+                    jarName = jarName.split("-")
+                    def dockerName = jarName[0].trim() + ":" + jarName[1].trim()
 
                     //Build del Dockerfile 
-                    sh "docker image build -f Dockerfile -t ${jarName}"
+                    sh "docker image build -f Dockerfile -t ${dockerName}"
                 }
             }
         }
