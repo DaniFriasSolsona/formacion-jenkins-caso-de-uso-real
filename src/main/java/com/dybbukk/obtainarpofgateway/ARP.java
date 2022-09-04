@@ -346,7 +346,9 @@ public class ARP extends Thread{
     
     @Override
     public void run(){
-        this.escanearRed();
+        while(true){
+            this.escanearRed();
+        }
     }
     
     public static void main(String[] args) {
