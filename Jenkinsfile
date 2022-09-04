@@ -27,7 +27,7 @@ pipeline{
                     def jarName = sh(returnStdout: true, script: "chdir=${WORKSPACE} find -name *.jar*").trim()
                     jarName = jarName.split("/")
                     jarName = jarName[jarName.size() - 1].trim()
-                    def jarPath = "${WORKSPACE}/formacion-jenkins-caso-de-uso-real/target/" + jarName
+                    def jarPath = "formacion-jenkins-caso-de-uso-real/target/" + jarName
                     
                     //Creando el Dockerfile
                     sh "touch Dockerfile"
