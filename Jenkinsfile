@@ -31,7 +31,7 @@ pipeline{
                     
                     //Creando el Dockerfile
                     sh "touch Dockerfile"
-                    sh "echo -e 'FROM java:8' >> Dockerfile"
+                    sh "echo -e 'FROM openjdk' >> Dockerfile"
                     sh "echo -e 'ADD ${jarPath} ${jarName}' >> Dockerfile"
                     sh "echo -e 'CMD java - jar ${jarName}' >> Dockerfile"
                     
