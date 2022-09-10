@@ -10,5 +10,14 @@ pipeline{
                 }
             }
         }
+        stage("Maven"){
+            steps{
+                script{
+                    dir("formacion-jenkins-caso-de-uso-real"){
+                        maven.commonPhases()
+                    }
+                }
+            }
+        }
     }
 }
