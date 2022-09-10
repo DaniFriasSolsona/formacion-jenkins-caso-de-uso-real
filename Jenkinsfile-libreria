@@ -2,6 +2,9 @@
 
 pipeline{
     agent any
+    environment{
+        TYPE = "java"
+    }
     stages{
         stage("Git"){
             steps{
@@ -14,8 +17,18 @@ pipeline{
             steps{
                 script{
                     dir("formacion-jenkins-caso-de-uso-real"){
-                        maven.commonPhases(steps)
+                        maven.commonPhases(this)
                     }
+                }
+            }
+        }
+        stage("Docker"){
+            steps{
+                script{
+                    docker.prune(this)
+                    docker.createDockerfile(this, TYPE)
+                    docker.printDockerfile(this)
+                    docker.build(this, TYPE)
                 }
             }
         }
