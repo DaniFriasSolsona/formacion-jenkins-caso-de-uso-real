@@ -3,9 +3,9 @@
 pipeline{
     agent any
     environment{
-        TYPE = "java"
-        PATH = "formacion-jenkins-caso-de-uso-real"
-        GH_URL = "https://github.com/MartiMarch/${PATH}.git"
+        def TYPE = "java"
+        def PATH = "formacion-jenkins-caso-de-uso-real"
+        def GH_URL = "https://github.com/MartiMarch/${PATH}.git"
     }
     stages{
         stage("Git"){
