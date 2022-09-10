@@ -2,18 +2,23 @@
 
 pipeline{
     agent any
+    environment{
+        TYPE = "java"
+        PATH = "formacion-jenkins-caso-de-uso-real"
+        GH_URL = "https://github.com/MartiMarch/${env.PATH}.git"
+    }
     stages{
         stage("Git"){
             steps{
                 script{
-                    git.clone(this, "https://github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git")
+                    git.clone(this, env.GH_URL)
                 }
             }
         }
         stage("Maven"){
             steps{
                 script{
-                    dir("formacion-jenkins-caso-de-uso-real"){
+                    dir(PATH){
                         maven.commonPhases(this)
                     }
                 }
@@ -23,16 +28,16 @@ pipeline{
             steps{
                 script{
                     docker.prune(this)
-                    docker.createDockerfile(this, "java")
+                    docker.createDockerfile(this, env.TYPE)
                     docker.printDockerfile(this)
-                    docker.build(this, "java")
+                    docker.build(this, env.TYPE)
                 }
             }
         }
         stage("Helm"){
             steps{
                 script{
-                    dir("formacion-jenkins-caso-de-uso-real/helm"){
+                    dir("${PATH}/helm"){
                         helm.template(this)
                         helm.lint(this)
                         helm.deploy(this)
