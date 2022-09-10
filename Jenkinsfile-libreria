@@ -14,7 +14,7 @@ pipeline{
             steps{
                 script{
                     dir("formacion-jenkins-caso-de-uso-real"){
-                        maven.commonPhases()
+                        maven.commonPhases(steps)
                     }
                 }
             }
