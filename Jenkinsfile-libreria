@@ -5,13 +5,12 @@ pipeline{
     environment{
         TYPE = "java"
         PATH = "formacion-jenkins-caso-de-uso-real"
-        GH_URL = "https://github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git"
     }
     stages{
         stage("Git"){
             steps{
                 script{
-                    git.clone(this, GH_URL)
+                    git.clone(this, "https://github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git")
                 }
             }
         }
