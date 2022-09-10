@@ -1,17 +1,16 @@
 @Library('libreria')_
 
+def String TYPE = "java"
+def String PATH = "formacion-jenkins-caso-de-uso-real"
+def String GH_URL = "https://github.com/MartiMarch/${PATH}.git"
+
 pipeline{
     agent any
-    environment{
-        TYPE = "java"
-        PATH = "formacion-jenkins-caso-de-uso-real"
-        GH_URL = "https://github.com/MartiMarch/${env.PATH}.git"
-    }
     stages{
         stage("Git"){
             steps{
                 script{
-                    git.clone(this, env.GH_URL)
+                    git.clone(this, GH_URL)
                 }
             }
         }
@@ -28,9 +27,9 @@ pipeline{
             steps{
                 script{
                     docker.prune(this)
-                    docker.createDockerfile(this, env.TYPE)
+                    docker.createDockerfile(this, TYPE)
                     docker.printDockerfile(this)
-                    docker.build(this, env.TYPE)
+                    docker.build(this, TYPE)
                 }
             }
         }
