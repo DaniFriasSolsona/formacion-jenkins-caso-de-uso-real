@@ -1,0 +1,12 @@
+@Library('libreria')_
+
+pipeline{
+    agent any
+    stages{
+        stage("Git"){
+            steps{
+                git.clone(this, "https://github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git")
+            }
+        }
+    }
+}
