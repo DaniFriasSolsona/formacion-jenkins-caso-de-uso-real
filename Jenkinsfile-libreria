@@ -5,6 +5,7 @@ pipeline{
     environment{
         TYPE = "java"
         PATH = "formacion-jenkins-caso-de-uso-real"
+        GH_URL = "https://github.com/MartiMarch/${PATH}.git"
     }
     stages{
         stage("Git"){
