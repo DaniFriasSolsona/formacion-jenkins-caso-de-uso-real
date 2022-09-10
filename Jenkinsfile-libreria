@@ -5,7 +5,7 @@ pipeline{
     environment{
         TYPE = "java"
         PATH = "formacion-jenkins-caso-de-uso-real"
-        GH_URL = "https://github.com/MartiMarch/" + PATH + ".git"
+        GH_URL = "https://github.com/MartiMarch/${PATH}.git"
     }
     stages{
         stage("Git"){
@@ -37,7 +37,7 @@ pipeline{
         stage("Helm"){
             steps{
                 script{
-                    dir(PATH + "/helm"){
+                    dir("${PATH}/helm"){
                         helm.template(this)
                         helm.lint(this)
                         helm.deploy(this)
