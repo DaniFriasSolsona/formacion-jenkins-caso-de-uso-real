@@ -3,9 +3,9 @@ pipeline{
     stages{
         stage("Git"){
             steps{
-                sh "rm -rf ./*",
+                script {
                 sh "git clone https://github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git"
-                
+                }
             }
         }
         stage("Maven"){
