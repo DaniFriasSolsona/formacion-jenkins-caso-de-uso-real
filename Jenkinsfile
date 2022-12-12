@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage("Git"){
             steps{
-                sh "rm -rf ./*"
+            //    sh "rm -rf ./*"
                 withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]){
                     sh "git clone https://${GIT_USER}:${GIT_PASS}@github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git"
                 }
