@@ -5,7 +5,7 @@ pipeline{
             steps{
                 sh "rm -rf ./*"
                 {
-                    sh "git clone https://${GIT_USER}:${GIT_PASS}@github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git"
+                    sh "git clone https://github.com/MartiMarch/formacion-jenkins-caso-de-uso-real.git"
                 }
             }
         }
